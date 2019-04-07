@@ -1,0 +1,68 @@
+{% extends "layout.html" %}
+
+{% block title %}
+
+    Gyms
+
+{% endblock %}
+
+{% block body %}
+
+    <h1>{{ gyms.gym }}</h1>
+
+    <div class="row">
+        <div class="col-12">
+            <table class="table table-striped table-bordered table-sm">
+                <tr class = "table-primary">
+                    <th style="width: 10%">Location</th>
+                    <th style="width: 60%">Website</th>
+                    <th style="width: 10%">$ per Session</th>
+                    <th style="width: 10%">Weekly $</th>
+                    <th style="width: 10%">Monthly $</th>
+                </tr>
+                <tr class="table-info">
+                    <td>{{ gyms.city }}</td>
+                    <td>Website</td>
+                    <td>300</td>
+                    <td>3000</td>
+                    <td>10000</td>
+                </tr>
+            </table>
+        </div>
+    </div>
+
+    <h2>Reviews</h2>
+
+    <div class="row">
+        <div class="col-12">
+            <table class="table table-striped table-bordered">
+                <tr>
+                    <th style="width: 5%">Date</th>
+                    <th style="width: 5%">User</th>
+                    <th style="width: 70%">Comments</th>
+                    <th style="width: 5%">Training</th>
+                    <th style="width: 5%">Facility</th>
+                    <th style="width: 5%">Location/Price</th>
+                    <th style="width: 5%">Overall</th>
+                </tr>
+    
+                {% for rating in ratings %}
+                    <tr>
+                        <td>{{rating.review_date.strftime('%m/%d/%Y')}}</td>
+                        <td>{{rating.username}}</td>
+                        <td style="word-wrap: break-word;max-width: 500px">{{rating.review}}</td>
+                        <td>{{rating.rating}}</td>
+                        <td>{{rating.rating}}</td>
+                        <td>{{rating.rating}}</td>
+                        <td>{{rating.rating}}</td>
+                    </tr>
+                {% else %}
+                    <tr>
+                        <td colspan="7">No Ratings</td>
+                    </tr>
+                {% endfor %}
+            </table>
+        </div>
+    </div>
+
+{% endblock %}

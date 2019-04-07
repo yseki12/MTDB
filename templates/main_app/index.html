@@ -1,0 +1,84 @@
+{% extends "layout.html" %}
+
+{% block title %}
+
+    Muay Thai Buddy
+
+{% endblock %}
+
+{% block body %}
+
+    <div class="row">
+        <div class="col-12">
+            <h2>Welcome to Muay Thai Buddy!</h2>
+            <img src='/static/image.jpg' class='img-fluid' alt='Responsive image'>
+        </div>
+    </div>
+    <div class = "row mt-2">
+        <div class="col-12">
+            <h5>Find a training partner in Thailand!</h5>
+        </div>
+    </div>
+    <div class = "row">
+        <div class="col-6">
+            <ul class="nav justify-content-left">
+                <li class="nav-item">
+                    <a class="nav-link active" href="{{ url_for('auth.register') }}">Register</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="{{ url_for('auth.login') }}">Login</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="{{ url_for('main_app.reviewgym') }}">Post Review</a>
+                </li>
+            </ul>
+        </div>
+        <div class="col-6">
+            <ul class="nav justify-content-end">
+                {% if g.user %}
+                    <li class="nav-item">
+                        <p class="navbar-text">Hello {{ g.user['username'] }}!</p>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="{{ url_for('auth.logout') }}">Logout</a>
+                    </li>
+                {% endif %}
+            </ul>
+        </div>
+    </div>
+    <div class = "row">
+        <div class = "col-12">
+            <table class = "table table-sm table-striped table-bordered">
+                <tr>
+                    <th>Gym</th>
+                    <th>Location</th>
+                    <th>Rating</th>
+                    <th>Number of Ratings</th>
+                    <th>Current Nak Muays</th>
+                    <th>Former Nak Muays</th>
+                </tr>
+            
+                {% for gym in gyms %}
+                    <tr>
+                        <td><a href = "{{ url_for('main_app.gym', gym_id = gym.id) }}">{{ gym.gym }}</a></td>
+                        <td>{{ gym.city }}</td>
+                        <td>4</td>
+                        <td>53</td>
+                        <td>18</td>
+                        <td>105</td>
+                    </tr>
+                {% endfor %}
+            </table>
+        </div>
+    </div>
+    <div class = "row">
+        <div class="col-12">
+            <div class="progress">
+                <div class="progress-bar" role="progressbar" aria-valuenow="60" aria-valuemin="0" aria-valuemax="100" style="width: 33%;">
+                    33% Complete
+                </div>
+            </div>
+        </div>
+    </div>
+
+{% endblock %}

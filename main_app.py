@@ -13,7 +13,15 @@ bp = Blueprint('main_app', __name__)
 
 @bp.route("/")
 def index():
-    gyms = db.execute("SELECT gyms.id, gyms.gym, locations.city FROM gyms JOIN locations ON locations.id = gyms.location").fetchall()
+    gyms = db.execute("""SELECT gyms.id, gyms.gym, locations.city, 
+                                ROUND(AVG(reviews.rating)::numeric,1) as average,
+                                COUNT(reviews.rating) as count
+                        FROM gyms
+                        JOIN locations on locations.id = gyms.location
+                        LEFT JOIN reviews on gyms.id = reviews.gym_id
+                        GROUP BY gyms.id, locations.city
+                        ORDER BY gyms.id""").fetchall()
+                        
     return render_template("main_app/index.html", gyms = gyms)
 
 @bp.route("/gyms/<int:gym_id>")

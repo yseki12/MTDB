@@ -50,20 +50,20 @@
         <div class = "col-12">
             <table class = "table table-sm table-striped table-bordered">
                 <tr>
-                    <th>Gym</th>
-                    <th>Location</th>
-                    <th>Rating</th>
-                    <th>Number of Ratings</th>
-                    <th>Current Nak Muays</th>
-                    <th>Former Nak Muays</th>
+                    <th style="width: 20%">Gym</th>
+                    <th style="width: 20%">Location</th>
+                    <th style="width: 15%">Average Rating</th>
+                    <th style="width: 15%">Number of Ratings</th>
+                    <th style="width: 15%">Current Nak Muays</th>
+                    <th style="width: 15%">Former Nak Muays</th>
                 </tr>
             
                 {% for gym in gyms %}
                     <tr>
                         <td><a href = "{{ url_for('main_app.gym', gym_id = gym.id) }}">{{ gym.gym }}</a></td>
                         <td>{{ gym.city }}</td>
-                        <td>4</td>
-                        <td>53</td>
+                        <td>{{ gym.average }}</td>
+                        <td>{{ gym.count }}</td>
                         <td>18</td>
                         <td>105</td>
                     </tr>

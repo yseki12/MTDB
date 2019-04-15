@@ -55,7 +55,7 @@ def reviewgym():
         except ValueError:
             return render_template("error.html", message = "Invalid rating!")
         
-        db.execute("INSERT INTO reviews (rating, review, gym_id, review_date, user_id) VALUES (:rating, :review, :gym_id , :review_date,                      :user_id)", {"rating": rating, "review": review, "gym_id": gym_id, "review_date": current_date, "user_id": g.user['id']})
+        db.execute("INSERT INTO reviews (rating, review, gym_id, review_date, user_id) VALUES (:rating, :review, :gym_id , :review_date, :user_id)", {"rating": rating, "review": review, "gym_id": gym_id, "review_date": current_date, "user_id": g.user['id']})
         
         db.commit()
 

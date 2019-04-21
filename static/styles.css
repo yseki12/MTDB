@@ -14,3 +14,11 @@ p {
     margin: 0px;
     padding: 0px;
  }
+
+.notbold{
+    font-weight:normal
+}​
+
+/*.table-borderless td, .table-borderless th { 
+    border: 0;
+}*/

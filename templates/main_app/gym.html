@@ -5,11 +5,17 @@
     Gyms
 
 {% endblock %}
-<style>
-    th {
-        spacing: 50px;
-    }
-</style>
+
+{% block head %}
+
+{{ super() }}
+
+<link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.8.1/css/all.css"
+    integrity="sha384-50oBUHEmvpQ+1lW4y57PTFmhCaXp0ML5d60M1M7uH2+nqUivzIebhndOJK28anvf" crossorigin="anonymous">
+
+<script src="{{ url_for('static', filename = 'stars.js') }}"></script>
+{% endblock %}
+
 {% block body %}
 
     <h1>{{ gyms.gym }}</h1>
@@ -42,25 +48,28 @@
             <div class="col-12">
                 <table class="table table-bordered">
                     <tr>
-                        <th style="width: 10%">Date</th>
-                        <th style="width: 10%">User</th>
-                        <th colspan="8">Review</th>
+                        <th style="width: 8%"><u>Date</u></th>
+                        <th style="width: 8%"><u>User</u></th>
+                        <th colspan="5"><u>Review</u></th>
+                        <th style="text-align:right; width: 13%"><span class ='notbold'>Length of Stay:</span></th>
+                        <th style="text-align:right"><span class='notbold'>{{rating.stay_length}}</span></th>
                     </tr>
                     <tr>
                         <td>{{rating.review_date.strftime('%m/%d/%Y')}}</td>
                         <td>{{rating.username}}</td>
-                        <td colspan="8">{{rating.review}}</td>
+                        <td colspan="9">{{rating.review}}</td>
                     </tr>
                     <tr>
-                        <td colspan="2" style="text-align:center"><b>Ratings</b></td>
-                        <td><i>Training</i></td>
-                        <td>{{rating.rating}}</td>
-                        <td><i>Facility</i></td>
-                        <td>{{rating.rating}}</td>
-                        <td><i>Location</i></td>
-                        <td>{{rating.rating}}</td>
-                        <td><i>Overall</i></td>
-                        <td>{{rating.rating}}</td>
+                        <td style="text-align:center"><b>Ratings</b></td>
+                        
+                        <td style="text-align:right; width: 8%"><i>Training: </i></td>
+                        <td style="text-align:right; width: 13%"><span class="rating">{{rating.rating_training}}</span></td>
+                        <td style="text-align:right; width: 8%"><i>Facility: </i></td>
+                        <td style="text-align:right; width: 13%"><span class="rating">{{rating.rating_facility}}</span></td>
+                        <td style="text-align:right; width: 8%"><i>Location/Cost: </i></td>
+                        <td style="text-align:right; width: 13%"><span class="rating">{{rating.rating_location}}</span></td>
+                        <td style="text-align:right; width: 5%"><i>Overall: </i></td>
+                        <td style="text-align:right; width: 13%"><span class="rating">{{rating.rating}}</span></td>
                     </tr>
                 </table>
             </div>

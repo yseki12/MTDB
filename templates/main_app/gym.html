@@ -1,21 +1,16 @@
 {% extends "layout.html" %}
 
 {% block title %}
-
     Gyms
-
 {% endblock %}
 
 {% block head %}
-
 {{ super() }}
+    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.8.1/css/all.css"
+        integrity="sha384-50oBUHEmvpQ+1lW4y57PTFmhCaXp0ML5d60M1M7uH2+nqUivzIebhndOJK28anvf" crossorigin="anonymous">
 
-<link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.8.1/css/all.css"
-    integrity="sha384-50oBUHEmvpQ+1lW4y57PTFmhCaXp0ML5d60M1M7uH2+nqUivzIebhndOJK28anvf" crossorigin="anonymous">
-
-<script src="{{ url_for('static', filename = 'stars.js') }}"></script>
+    <script src="{{ url_for('static', filename = 'stars.js') }}"></script>
 {% endblock %}
-
 {% block body %}
 
     <h1>{{ gyms.gym }}</h1>
@@ -50,7 +45,18 @@
                     <tr>
                         <th style="width: 8%"><u>Date</u></th>
                         <th style="width: 8%"><u>User</u></th>
-                        <th colspan="5"><u>Review</u></th>
+                        <th colspan="5"><u>Review</u>&nbsp&nbsp
+                        {% if g.user['id'] == rating['userid'] %}
+                        <form action="{{ url_for('main_app.delete', id = rating['reviewid']) }}" method="POST" class="inline">
+                            <button type="submit" value="delete" onclick="return confirm('Are you sure?');" style="border:0; background: none;">
+                                <i class="far fa-trash-alt"></i></button>
+                        </form>
+                        <form action="{{ url_for('main_app.update', id = rating['reviewid']) }}" method="GET" class="inline">
+                            <button type="submit" style="border:0; background: none;">
+                                <i class="far fa-edit"></i></button>
+                        </form>
+                        {% endif %}
+                        </th>
                         <th style="text-align:right; width: 13%"><span class ='notbold'>Length of Stay:</span></th>
                         <th style="text-align:right"><span class='notbold'>{{rating.stay_length}}</span></th>
                     </tr>

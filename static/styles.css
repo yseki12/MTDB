@@ -1,13 +1,23 @@
 h1, h2, h3, h4, h5, h6 {
     font-style: normal;
     text-align: center;
+    font-family: 'Roboto', sans-serif;
+    /**ffont-family: 'Montserrat', sans-serif;**/
 }
 
-img {
+img.logo {
     display: block;
     margin-left: auto;
     margin-right: auto;
     width: 20%;
+}
+
+img.login {
+    display: block;
+    margin-left: auto;
+    margin-right: auto;
+    width: 50%;
+    padding: 10px;
 }
 
 p {
@@ -19,6 +29,17 @@ p {
     font-weight:normal
 }​
 
-/*.table-borderless td, .table-borderless th { 
-    border: 0;
-}*/
+.table-borderless td, .table-borderless th, .table-borderless tr{ 
+    border: 0 !important;
+}
+
+form.inline {
+    display: inline;
+}
+
+/*.table-borderless > tbody > tr > td,
+.table-borderless > thead > tr > td,
+.table-borderless {
+    border-bottom:0;
+    border-top: 0;
+}

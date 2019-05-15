@@ -1,21 +1,10 @@
 {% extends "layout.html" %}
 
-{% block title %}
+{% block title %}Error!{% endblock %}
 
-    Error!
-
-{% endblock %}
-
-{% block head %}
-
-{{ super() }}
-
-{% endblock %}
+{% block head %}{{ super() }}{% endblock %}
 
 {% block body %}
-
     <h1>Error!</h1>
-
     {{ message }}
-
 {% endblock %}

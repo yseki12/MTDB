@@ -1,7 +1,7 @@
 import os
 from datetime import date
 
-from flask import Flask, session, render_template, request, redirect, url_for, g, Blueprint
+from flask import Flask, session, render_template, request, redirect, url_for, g, Blueprint, flash
 from flask_session import Session
 from werkzeug.exceptions import abort
 
@@ -52,6 +52,8 @@ def reviewgym():
 
     if request.method == "POST":
         
+        error = None
+
         units_of_time = ['Days', 'Weeks', 'Months', 'Years']
 
         gym_id = int(request.form.get("gym_id"))
@@ -60,21 +62,18 @@ def reviewgym():
         ratings_form_name = ["rate_training", "rate_facility", "rate_locationcost", "rate_overall"]
         ratings_dict = {}
 
+        if db.execute("SELECT * FROM gyms WHERE id = :id", {"id": gym_id}).rowcount == 0:
+            error = "No gym with that ID"
+
         if not unit_stay in units_of_time:
-            return render_template("error.html", message = "Please choose a unit of time")
+            error =  "Please choose a unit of time"
         elif not review:
-            return render_template("error.html", message = "No Review Provided!")
+            error = "No Review Provided!"
 
         try:
             length_stay = int(request.form.get('length_stay'))
         except ValueError:
-            return render_template("error.html", message = "Invalid Length of Stay!")
-
-        if length_stay == 1:
-            unit_stay = unit_stay[:-1]
-
-        total_stay = str(length_stay) + ' ' + unit_stay
-        stay_days = calc_days(length_stay, unit_stay)
+            error = "Invalid Length of Stay!"
 
         for rating in ratings_form_name:
             if request.form.get(rating):
@@ -83,21 +82,29 @@ def reviewgym():
                     if not 0 <= rating_input <= 5:
                         raise ValueError
                 except ValueError:
-                    return render_template("error.html", message = "Invalid rating!")
+                    error = "Invalid rating!"
                 else:
                     ratings_dict[rating] = rating_input
             else:
-                return render_template("error.html", message = "Please include all ratings!")
+                error = "Please include all ratings!"
         
-        db.execute("""INSERT INTO reviews (rating, review, gym_id, review_date, user_id, rating_training, rating_facility, rating_location, stay_length, stay_days) 
-                      VALUES (:rating, :review, :gym_id , :review_date, :user_id, :rating_training, :rating_facility, :rating_location, :stay_length, :stay_days)""", 
-                      {"rating": ratings_dict["rate_overall"], "review": review, "gym_id": gym_id, "review_date": current_date, "user_id": g.user['id'], 
-                      "rating_training": ratings_dict["rate_training"], "rating_facility": ratings_dict["rate_facility"], 
-                      "rating_location": ratings_dict["rate_locationcost"], "stay_length": total_stay, "stay_days": stay_days})
-        
-        db.commit()
+        if error is None:
 
-        return render_template("success.html", message = "You have successfully posted a review")
+            if length_stay == 1:
+                unit_stay = unit_stay[:-1]
+
+            total_stay = str(length_stay) + ' ' + unit_stay
+            stay_days = calc_days(length_stay, unit_stay)
+
+            db.execute("""INSERT INTO reviews (rating, review, gym_id, review_date, user_id, rating_training, rating_facility, rating_location, stay_length, stay_days) 
+                        VALUES (:rating, :review, :gym_id , :review_date, :user_id, :rating_training, :rating_facility, :rating_location, :stay_length, :stay_days)""", 
+                        {"rating": ratings_dict["rate_overall"], "review": review, "gym_id": gym_id, "review_date": current_date, "user_id": g.user['id'], 
+                        "rating_training": ratings_dict["rate_training"], "rating_facility": ratings_dict["rate_facility"], 
+                        "rating_location": ratings_dict["rate_locationcost"], "stay_length": total_stay, "stay_days": stay_days})
+            db.commit()
+            return render_template("success.html", message = "You have successfully posted a review")
+
+        flash(error, 'error')
     
     gyms = db.execute("SELECT * FROM gyms ORDER BY gym").fetchall()
 
@@ -133,6 +140,7 @@ def update(id):
 
     if request.method == "POST":
         
+        error = None
         units_of_time = ['Days', 'Weeks', 'Months', 'Years']
 
         gym_id = old_review['gym_id']
@@ -142,20 +150,14 @@ def update(id):
         ratings_dict = {}
 
         if not unit_stay in units_of_time:
-            return render_template("error.html", message = "Please choose a unit of time")
+            error = "Please choose a unit of time"
         elif not review:
-            return render_template("error.html", message = "No Review Provided!")
+            error = "No Review Provided!"
 
         try:
             length_stay = int(request.form.get('length_stay'))
         except ValueError:
-            return render_template("error.html", message = "Invalid Length of Stay!")
-
-        if length_stay == 1:
-            unit_stay = unit_stay[:-1]
-
-        total_stay = str(length_stay) + ' ' + unit_stay
-        stay_days = calc_days(length_stay, unit_stay)
+            error = "Invalid Length of Stay!"
 
         for rating in ratings_form_name:
             if request.form.get(rating):
@@ -164,21 +166,31 @@ def update(id):
                     if not 0 <= rating_input <= 5:
                         raise ValueError
                 except ValueError:
-                    return render_template("error.html", message = "Invalid rating!")
+                    error =  "Invalid rating!"
                 else:
                     ratings_dict[rating] = rating_input
             else:
-                return render_template("error.html", message = "Please include all ratings!")
-        
-        db.execute("""UPDATE reviews SET rating = :rating, review = :review, gym_id = :gym_id, review_date = :review_date, user_id = :user_id, 
-                      rating_training = :rating_training, rating_facility = :rating_facility, rating_location = :rating_location, stay_length = :stay_length, stay_days = :stay_days
-                      WHERE id = :id""", 
-                      {"rating": ratings_dict["rate_overall"], "review": review, "gym_id": gym_id, "review_date": current_date, "user_id": g.user['id'], 
-                      "rating_training": ratings_dict["rate_training"], "rating_facility": ratings_dict["rate_facility"], 
-                      "rating_location": ratings_dict["rate_locationcost"], "stay_length": total_stay, "stay_days": stay_days, "id": id})
-        
-        db.commit()
+                error = "Please include all ratings!"
 
-        return redirect(url_for('index'))
+        if error is None:
+
+            if length_stay == 1:
+                unit_stay = unit_stay[:-1]
+
+            total_stay = str(length_stay) + ' ' + unit_stay
+            stay_days = calc_days(length_stay, unit_stay)
+        
+            db.execute("""UPDATE reviews SET rating = :rating, review = :review, gym_id = :gym_id, review_date = :review_date, user_id = :user_id, 
+                        rating_training = :rating_training, rating_facility = :rating_facility, rating_location = :rating_location, stay_length = :stay_length, stay_days = :stay_days
+                        WHERE id = :id""", 
+                        {"rating": ratings_dict["rate_overall"], "review": review, "gym_id": gym_id, "review_date": current_date, "user_id": g.user['id'], 
+                        "rating_training": ratings_dict["rate_training"], "rating_facility": ratings_dict["rate_facility"], 
+                        "rating_location": ratings_dict["rate_locationcost"], "stay_length": total_stay, "stay_days": stay_days, "id": id})
+            
+            db.commit()
+            
+            return redirect(url_for('index'))
+
+        flash(error, 'error')
 
     return render_template("main_app/update.html", old_review = old_review)

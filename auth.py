@@ -15,20 +15,25 @@ def register():
 
         username = request.form.get("username")
         password = request.form.get("password")
+        error = None
 
         if not username:
-            return render_template("error.html", message = "No username provided!")
+            error = "No username provided!"
         elif not password:
-            return render_template("error.html", message = "No password provided!")
+            error = "No password provided!"
         elif db.execute("SELECT * FROM users WHERE username = :username", {"username": username}).rowcount == 1:
-            return render_template("error.html", message = "Sorry, username already taken")
+            error =  f"Sorry, username {username} already taken"
 
-        db.execute("INSERT INTO users (username, password) VALUES (:username, :password)", 
-                    {"username":username, "password": generate_password_hash(password)})
+        if error is None:
+            db.execute("INSERT INTO users (username, password) VALUES (:username, :password)", 
+                {"username":username, "password": generate_password_hash(password)})
 
-        db.commit()
-
-        return render_template("success.html", message = "You have successfully registered")      
+            db.commit()
+            
+            flash('Successful Registration!', category='success')
+            return redirect(url_for('index'))     
+        
+        flash(error, 'error')
 
     return render_template("auth/register.html")
      
@@ -39,18 +44,22 @@ def login():
 
         username = request.form.get("username")
         password = request.form.get("password")
+        error = None
 
         user = db.execute("SELECT * FROM users WHERE username = :username", {"username": username}).fetchone()
 
         if user is None:
-            return render_template("error.html", message = "No username exists")
+            error =  f"Username: {username} does not exist"
         elif not check_password_hash(user['password'], password):
-            return render_template("error.html", message = "Incorrect password")
+            error =  "Incorrect password"
 
-        session.clear()
-        session['user_id'] = user['id']
+        if error is None:
+            session.clear()
+            session['user_id'] = user['id']
+            flash('Successful Login!', category='success')
+            return redirect(url_for('index'))
 
-        return redirect(url_for('index'))
+        flash(error, 'error')
 
     return render_template("auth/login.html")
        

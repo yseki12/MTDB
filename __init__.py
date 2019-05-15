@@ -22,4 +22,9 @@ def create_app():
     from . import database
     database.init_app(app)
 
+    """EQUIVALENT TO ABOVE???
+    from .database import db
+    def shutdown_session(exception=None):
+       db.remove()"""
+
     return app

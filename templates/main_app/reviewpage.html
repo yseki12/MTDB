@@ -1,15 +1,9 @@
 {% extends "layout.html" %}
 
-{% block title %}
-
-    Rate a Gym
-
-{% endblock %}
+{% block title %}Rate a Gym{% endblock %}
 
 {% block head %}
-
 {{ super() }}
-
 {% endblock %}
 
 {% block body %}
@@ -21,7 +15,8 @@
         <div class='form row justify-content-md-center'>
             <div class = "form-group col-sm-4">
                 <label>Choose Gym</label>
-                <select class = "form-control" name = "gym_id">
+                <select class = "form-control" name = "gym_id" required>
+                    <option value="">Select Gym</option>
                     {% for gym in gyms %}
                         <option value ="{{ gym.id }}">{{ gym.gym }}</option>
                     {% endfor %}
@@ -29,12 +24,12 @@
             </div>
             <div class='form-group col-sm-4'>
                 <label>Length of stay</label>
-                <input type="text" class="form-control" placeholder="Enter Number" id="inputTime" class="text-right" name="length_stay">
+                <input type="text" class="form-control" placeholder="Enter Number" id="inputTime" class="text-right" name="length_stay" required>
             </div>
             <div class='form-group col-sm-4'>
                 <label>Unit of Time</label>
-                <select id="inputTime1" class="form-control" name="unit_stay">
-                    <option selected>Choose...</option>
+                <select id="inputTime1" class="form-control" name="unit_stay" required>
+                    <option value="">Choose...</option>
                     <option value='Days'>Days</option>
                     <option value='Weeks'>Weeks</option>
                     <option value='Months'>Months</option>
@@ -49,7 +44,7 @@
             </div>
             <div class='col-4 text-right'>
                 <div class="custom-control custom-radio custom-control-inline">
-                    <input type="radio" class="custom-control-input" id="customRadio" name="rate_training" value="1">
+                    <input type="radio" class="custom-control-input" id="customRadio" name="rate_training" value="1" required>
                     <label class="custom-control-label" for="customRadio">1</label>
                 </div>
                 <div class="custom-control custom-radio custom-control-inline">
@@ -77,7 +72,7 @@
             </div>
             <div class='col-4 text-right'>
                 <div class="custom-control custom-radio custom-control-inline">
-                    <input type="radio" class="custom-control-input" id="customRadio6" name="rate_facility" value="1">
+                    <input type="radio" class="custom-control-input" id="customRadio6" name="rate_facility" value="1" required>
                     <label class="custom-control-label" for="customRadio6">1</label>
                 </div>
                 <div class="custom-control custom-radio custom-control-inline">
@@ -105,7 +100,7 @@
             </div>
             <div class='col-4 text-right'>
                 <div class="custom-control custom-radio custom-control-inline">
-                    <input type="radio" class="custom-control-input" id="customRadio11" name="rate_locationcost" value="1">
+                    <input type="radio" class="custom-control-input" id="customRadio11" name="rate_locationcost" value="1" required>
                     <label class="custom-control-label" for="customRadio11">1</label>
                 </div>
                 <div class="custom-control custom-radio custom-control-inline">
@@ -133,7 +128,7 @@
             </div>
             <div class='col-4 text-right'>
                 <div class="custom-control custom-radio custom-control-inline">
-                    <input type="radio" class="custom-control-input" id="customRadio16" name="rate_overall" value="1">
+                    <input type="radio" class="custom-control-input" id="customRadio16" name="rate_overall" value="1" required>
                     <label class="custom-control-label" for="customRadio16">1</label>
                 </div>
                 <div class="custom-control custom-radio custom-control-inline">
@@ -156,7 +151,7 @@
         </div>
 
         <div class="form-group">
-            <textarea class="form-control" name="review" placeholder="Write your Review", rows="10"></textarea>
+            <textarea class="form-control" name="review" placeholder="Write your Review", rows="10" required>{{ request.form['review'] }}</textarea>
         </div>
         <div class="form-group text-right">
             <input class="btn btn-secondary" type="reset" value="Reset">

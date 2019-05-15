@@ -1,21 +1,10 @@
 {% extends "layout.html" %}
 
-{% block title %}
+{% block title %}Success{% endblock %}
 
-    Success
-
-{% endblock %}
-
-{% block head %}
-
-{{ super() }}
-
-{% endblock %}
+{% block head %}{{ super() }}{% endblock %}
 
 {% block body %}
-
     <h1>Success!</h1>
-
     {{ message }}
-
 {% endblock %}

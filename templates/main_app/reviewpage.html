@@ -12,8 +12,8 @@
 
     <form action = "{{ url_for('main_app.reviewgym') }}" method = "post">
 
-        <div class='form row justify-content-md-center'>
-            <div class = "form-group col-sm-4">
+        <div class='form row justify-content-center'>
+            <div class = "form-group col-3 col-md-2">
                 <label>Choose Gym</label>
                 <select class = "form-control" name = "gym_id" required>
                     <option value="">Select Gym</option>
@@ -22,11 +22,11 @@
                     {% endfor %}
                 </select>
             </div>
-            <div class='form-group col-sm-4'>
-                <label>Length of stay</label>
+            <div class='form-group col-3 col-md-2'>
+                <label>Stay Length</label>
                 <input type="text" class="form-control" placeholder="Enter Number" id="inputTime" class="text-right" name="length_stay" required>
             </div>
-            <div class='form-group col-sm-4'>
+            <div class='form-group col-3 col-md-2'>
                 <label>Unit of Time</label>
                 <select id="inputTime1" class="form-control" name="unit_stay" required>
                     <option value="">Choose...</option>
@@ -37,12 +37,11 @@
                 </select>
             </div>
         </div>
-
-        <div class="form row">
-            <div class='form-group col-8'>
-                Rate the Training (Technical Instruction, Trainers, Padwork, Sparring, Clinching, Training Partners, etc.):
+        <div class="form-row justify-content-center">
+            <div class='form-group col-6'>
+                Rate the Training (Instruction, Trainers, Padwork, Sparring, Clinching, etc.):
             </div>
-            <div class='col-4 text-right'>
+            <div class='form-group col-4' style="text-align: right">
                 <div class="custom-control custom-radio custom-control-inline">
                     <input type="radio" class="custom-control-input" id="customRadio" name="rate_training" value="1" required>
                     <label class="custom-control-label" for="customRadio">1</label>
@@ -65,12 +64,11 @@
                 </div>
             </div>
         </div>
-
-        <div class="form row">
-            <div class='form-group col-8'>
+        <div class="form-row justify-content-center">
+            <div class='form-group col-6'>
                 Rate the Facilities (Equipment, Hygiene, Onsite Accommodations, etc.):
             </div>
-            <div class='col-4 text-right'>
+            <div class='form-group col-4' style="text-align: right">
                 <div class="custom-control custom-radio custom-control-inline">
                     <input type="radio" class="custom-control-input" id="customRadio6" name="rate_facility" value="1" required>
                     <label class="custom-control-label" for="customRadio6">1</label>
@@ -93,12 +91,11 @@
                 </div>
             </div>
         </div>
-
-        <div class="form row">
-            <div class='form-group col-8'>
-                Rate the Location/Price (Nearby Attractions/Accommodations, Transportation, Food Options, etc.):
+        <div class="form-row justify-content-center">
+            <div class='form-group col-6'>
+                Rate the Location/Price (Nearby Attractions/Housing/Transport/Food, etc.):
             </div>
-            <div class='col-4 text-right'>
+            <div class='form-group col-4' style="text-align: right">
                 <div class="custom-control custom-radio custom-control-inline">
                     <input type="radio" class="custom-control-input" id="customRadio11" name="rate_locationcost" value="1" required>
                     <label class="custom-control-label" for="customRadio11">1</label>
@@ -121,12 +118,13 @@
                 </div>
             </div>
         </div>
-
-        <div class="form row">
-            <div class='form-group col-8'>
-                Overall Rating:
+        <div class="form row justify-content-center">
+            <div class='form-group col-10 my-0' style="text-align: center">
+                <b>Overall Rating</b>
             </div>
-            <div class='col-4 text-right'>
+        </div>
+        <div class="form row justify-content-center">
+            <div class='form-group col-10 my-2' style="text-align: center">
                 <div class="custom-control custom-radio custom-control-inline">
                     <input type="radio" class="custom-control-input" id="customRadio16" name="rate_overall" value="1" required>
                     <label class="custom-control-label" for="customRadio16">1</label>
@@ -150,12 +148,16 @@
             </div>
         </div>
 
-        <div class="form-group">
-            <textarea class="form-control" name="review" placeholder="Write your Review", rows="10" required>{{ request.form['review'] }}</textarea>
+        <div class="form-row justify-content-center">
+            <div class='form-group col-10'>
+                <textarea class="form-control" name="review" placeholder="Write your Review", rows="10" required>{{ request.form['review'] }}</textarea>
+            </div>
         </div>
-        <div class="form-group text-right">
-            <input class="btn btn-secondary" type="reset" value="Reset">
-            <button class="btn btn-primary">Submit</button>
+        <div class="form-row justify-content-center">
+            <div class="form-group col-10 text-right">
+                <input class="btn btn-secondary" type="reset" value="Reset">
+                <button class="btn btn-primary">Submit</button>
+            </div>
         </div>
     </form>
 

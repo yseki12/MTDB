@@ -15,13 +15,13 @@
 
     <h1>{{ gyms.gym }}</h1>
     <br>
-    <div class="row">
-        <div class="col-12">
-            <table class="table table-sm">
+    <div class="row justify-content-center">
+        <div class="col-10">
+            <table class="table table-bordered table-sm">
                 <tr>
-                    <th style="width: 10%">Location</th>
-                    <th style="width: 60%">Website</th>
-                    <th style="width: 10%">$ per Session</th>
+                    <th style="width: 15%">Location</th>
+                    <th style="width: 50%">Website</th>
+                    <th style="width: 15%">$ per Session</th>
                     <th style="width: 10%">Weekly $</th>
                     <th style="width: 10%">Monthly $</th>
                 </tr>
@@ -39,51 +39,46 @@
     <h2>Reviews</h2>
 
     {% for rating in ratings %}
-        <div class="row">
-            <div class="col-12">
+        <div class="row justify-content-center">
+            <div class="col-10">
                 <table class="table table-bordered">
                     <tr>
                         <th style="width: 8%"><u>Date</u></th>
-                        <th style="width: 8%"><u>User</u></th>
-                        <th colspan="5"><u>Review</u>&nbsp&nbsp
+                        <th style="width: 10%"><u>User</u></th>
+                        <th style="width: 7%"><u>Review</u></th>
+                        <th colspan="5">
                         {% if g.user['id'] == rating['userid'] %}
-                        <form action="{{ url_for('main_app.delete', id = rating['reviewid']) }}" method="POST" class="inline">
-                            <button type="submit" value="delete" onclick="return confirm('Are you sure?');" style="border:0; background: none;">
-                                <i class="far fa-trash-alt"></i></button>
-                        </form>
-                        <form action="{{ url_for('main_app.update', id = rating['reviewid']) }}" method="GET" class="inline">
-                            <button type="submit" style="border:0; background: none;">
-                                <i class="far fa-edit"></i></button>
-                        </form>
+                            <form action="{{ url_for('main_app.delete', id = rating['reviewid']) }}" method="POST" style="display: inline-block">
+                                <button type="submit" value="delete" onclick="return confirm('Are you sure?');" style="border:0; background: none;">
+                                    <i class="far fa-trash-alt"></i></button>
+                            </form>
+                            <form action="{{ url_for('main_app.update', id = rating['reviewid']) }}" method="GET" style="display: inline-block">
+                                <button type="submit" style="border:0; background: none;">
+                                    <i class="far fa-edit"></i></button>
+                            </form>
                         {% endif %}
                         </th>
-                        <th style="text-align:right; width: 13%"><span class ='notbold'>Length of Stay:</span></th>
-                        <th style="text-align:right"><span class='notbold'>{{rating.stay_length}}</span></th>
+                        <th style="text-align:right; width: 8%"><span class ='notbold'>Stay:</span></th>
+                        <th style="text-align:right; width: 12%"><span class='notbold'>{{rating.stay_length}}</span></th>
                     </tr>
                     <tr>
                         <td>{{rating.review_date.strftime('%m/%d/%Y')}}</td>
                         <td>{{rating.username}}</td>
-                        <td colspan="9">{{rating.review}}</td>
+                        <td colspan="8">{{rating.review}}</td>
                     </tr>
-                    <tr>
-                        <td style="text-align:center"><b>Ratings</b></td>
-                        
-                        <td style="text-align:right; width: 8%"><i>Training: </i></td>
-                        <td style="text-align:right; width: 13%"><span class="rating">{{rating.rating_training}}</span></td>
-                        <td style="text-align:right; width: 8%"><i>Facility: </i></td>
-                        <td style="text-align:right; width: 13%"><span class="rating">{{rating.rating_facility}}</span></td>
-                        <td style="text-align:right; width: 8%"><i>Location/Cost: </i></td>
-                        <td style="text-align:right; width: 13%"><span class="rating">{{rating.rating_location}}</span></td>
-                        <td style="text-align:right; width: 5%"><i>Overall: </i></td>
-                        <td style="text-align:right; width: 13%"><span class="rating">{{rating.rating}}</span></td>
+                    <tr>                        
+                        <td colspan="2" style="width: 25%; padding:5px 10px; text-align: center"><i>Training: &nbsp<span class="rating">{{rating.rating_training}}</span></i></td>
+                        <td colspan="2" style="width: 20%; padding:5px 10px; text-align: center"><i>Facility: &nbsp<span class="rating">{{rating.rating_facility}}</span></i></td>
+                        <td colspan="3" style="width: 25%; padding:5px 10px; text-align: center"><i>Location/Cost: &nbsp<span class="rating">{{rating.rating_location}}</span></i></td>
+                        <td colspan="3" style="width: 25%; padding:5px 10px; text-align: center"><i>Overall: &nbsp<span class="rating">{{rating.rating}}</span></i></td>
                     </tr>
                 </table>
             </div>
         </div>
         <br>
     {% else %}
-        <div class="row">
-            <div class="col-12">
+        <div class="row justify-content-center">
+            <div class="col-10">
                 <table>
                     <tr>
                         <th>No Ratings</th>

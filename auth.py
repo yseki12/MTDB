@@ -31,6 +31,8 @@ def register():
             db.commit()
             
             flash('Successful Registration!', category='success')
+            session.clear()
+
             return redirect(url_for('index'))     
         
         flash(error, 'error')

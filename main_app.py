@@ -102,7 +102,9 @@ def reviewgym():
                         "rating_training": ratings_dict["rate_training"], "rating_facility": ratings_dict["rate_facility"], 
                         "rating_location": ratings_dict["rate_locationcost"], "stay_length": total_stay, "stay_days": stay_days})
             db.commit()
-            return render_template("success.html", message = "You have successfully posted a review")
+
+            flash('You have successfully posted a review', category='success')
+            return redirect(url_for('index'))
 
         flash(error, 'error')
     
@@ -130,6 +132,7 @@ def delete(id):
     get_review(id)
     db.execute("DELETE FROM reviews WHERE id = :id", {"id": id})
     db.commit()
+    flash('Review Deleted!', category='success')
     return redirect(url_for('index'))
 
 @bp.route('/<int:id>/update', methods = ["POST", "GET"])
@@ -189,6 +192,8 @@ def update(id):
             
             db.commit()
             
+            flash('Review Edited!', category='success')
+
             return redirect(url_for('index'))
 
         flash(error, 'error')

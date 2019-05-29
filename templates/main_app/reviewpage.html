@@ -4,6 +4,7 @@
 
 {% block head %}
 {{ super() }}
+<script src="{{ url_for('static', filename = 'stars.js') }}"></script>
 {% endblock %}
 
 {% block body %}
@@ -22,11 +23,18 @@
                     {% endfor %}
                 </select>
             </div>
-            <div class='form-group col-3 col-md-2'>
-                <label>Stay Length</label>
-                <input type="text" class="form-control" placeholder="Enter Number" id="inputTime" class="text-right" name="length_stay" required>
+            <div class='form-group col-3 col-md-6'>
+                <label for="customRange">Stay Length</label>
+                <div class="form-row">
+                    <div class="col">
+                        <input type="range" class="custom-range" id="customRange" name="length_stay" min="0" max="50" value="0" oninput="updateTextInput(this.value);" required>
+                    </div>
+                    <div class="col-auto">
+                        <output name="OutputName" class="custom-range" id="OutputId" value="">0</output>
+                    </div>
+                </div>
             </div>
-            <div class='form-group col-3 col-md-2'>
+            <div class='form-group col-3 col-md-2 px-4'>
                 <label>Unit of Time</label>
                 <select id="inputTime1" class="form-control" name="unit_stay" required>
                     <option value="">Choose...</option>
@@ -119,12 +127,10 @@
             </div>
         </div>
         <div class="form row justify-content-center">
-            <div class='form-group col-10 my-0' style="text-align: center">
-                <b>Overall Rating</b>
+            <div class='form-group col-6'>
+                <b>Overall Rating (1 = Bad &#128542;, 3 = Ok &#128528;, 5 = Great! &#128513;): </b>
             </div>
-        </div>
-        <div class="form row justify-content-center">
-            <div class='form-group col-10 my-2' style="text-align: center">
+            <div class='form-group col-4' style="text-align: right">
                 <div class="custom-control custom-radio custom-control-inline">
                     <input type="radio" class="custom-control-input" id="customRadio16" name="rate_overall" value="1" required>
                     <label class="custom-control-label" for="customRadio16">1</label>
@@ -147,7 +153,6 @@
                 </div>
             </div>
         </div>
-
         <div class="form-row justify-content-center">
             <div class='form-group col-10'>
                 <textarea class="form-control" name="review" placeholder="Write your Review", rows="10" required>{{ request.form['review'] }}</textarea>

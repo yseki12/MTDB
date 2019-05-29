@@ -2,6 +2,7 @@ h1, h2, h3, h4, h5, h6 {
     font-style: normal;
     text-align: center;
     font-family: 'Roboto', sans-serif;
+    font-style: italic;
     /**ffont-family: 'Montserrat', sans-serif;**/
 }
 
@@ -9,15 +10,14 @@ img.logo {
     display: block;
     margin-left: auto;
     margin-right: auto;
-    width: 20%;
+    width: 25%;
 }
 
 img.login {
     display: block;
     margin-left: auto;
     margin-right: auto;
-    width: 50%;
-    padding: 10px;
+    width: 100px;
 }
 
 p {
@@ -29,17 +29,49 @@ p {
     font-weight:normal
 }​
 
-.table-borderless td, .table-borderless th, .table-borderless tr{ 
-    border: 0 !important;
-}
-
 form.inline {
     display: inline;
 }
 
-/*.table-borderless > tbody > tr > td,
-.table-borderless > thead > tr > td,
-.table-borderless {
-    border-bottom:0;
-    border-top: 0;
+.table-main th {
+    text-align: center;
+    vertical-align: middle;
+    font-size: 14px;
+    font-family: 'Roboto', sans-serif;
+    font-weight: 700;
+    cursor: pointer;
+    position: relative;
+}
+
+label.custom-control-label {
+    font-size: 16px;
+}
+
+span.sorticon {
+    display: none;
+}
+
+th.header:hover span.sorticon {
+    display: inline-block;
+    position: absolute;
+    right: 5px;
+}
+
+.table-borderless td, .table-borderless th, .table-borderless tr{
+    border: none !important;
+}
+
+@media only screen and (max-width: 1026px) {
+    th.header:hover span.sorticon {
+        display: none;
+    }
+}
+
+input.custom-range {
+    vertical-align: -14px;
+    display: inline-block;
+}
+
+output.custom-range {
+    vertical-align: -8px;
 }

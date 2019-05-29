@@ -4,6 +4,9 @@
 
 {% block head %}
 {{ super() }}
+<link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.8.1/css/all.css"
+    integrity="sha384-50oBUHEmvpQ+1lW4y57PTFmhCaXp0ML5d60M1M7uH2+nqUivzIebhndOJK28anvf" crossorigin="anonymous">
+<script src="{{ url_for('static', filename = 'sorttable.js') }}"></script>
 {% endblock %}
 
 {% block body %}
@@ -16,13 +19,13 @@
     </div>
     <div class="row justify-content-center">
         <div class = "col-10">
-            <table class = "table table-sm table-striped table-bordered table-main">
+            <table class = "table table-sm table-striped table-bordered table-main" id="indexTable">
                 <tr>
-                    <th style="width: 20%">Gym Name</th>
-                    <th style="width: 20%">Location</th>
-                    <th style="width: 15%">Average Rating</th>
-                    <th style="width: 15%">Number of Ratings</th>
-                    <th style="width: 15%">Total Days Trained</th>
+                    <th id="th_gym_name" class="header" style="width: 20%" onclick="sortTable(0);sortImage(this);">Gym Name<span class="sorticon"><i class="fas fa-sort"></i></span></th>
+                    <th id="th_gym_loc" class="header" style="width: 20%" onclick="sortTable(1);sortImage(this);">Location<span class="sorticon"><i class="fas fa-sort"></i></span></th>
+                    <th id="th_gym_rate" class="header" style="width: 20%" onclick="sortTable(2);sortImage(this);">Average Rating<span class="sorticon"><i class="fas fa-sort"></i></span></th>
+                    <th id="th_num_rate" class="header" style="width: 20%" onclick="sortTable(3);sortImage(this);">Number of Ratings<span class="sorticon"><i class="fas fa-sort"></i></span></th>
+                    <th id="th_days_train" class="header" style="width: 20%" onclick="sortTable(4);sortImage(this);">Total Days Trained<span class="sorticon"><i class="fas fa-sort"></i></span></th>
                 </tr>
             
                 {% for gym in gyms %}

@@ -26,3 +26,7 @@ document.addEventListener('DOMContentLoaded', function() {
         } 
     }
 })
+
+function updateTextInput(val) {
+    document.getElementById('OutputId').value = val;
+}

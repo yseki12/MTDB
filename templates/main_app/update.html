@@ -2,7 +2,10 @@
 
 {% block title %}Update Review{% endblock %}
 
-{% block head %}{{ super() }}{% endblock %}
+{% block head %}
+{{ super() }}
+<script src="{{ url_for('static', filename = 'stars.js') }}"></script>
+{% endblock %}
 
 {% block body %}
 
@@ -17,9 +20,16 @@
                     <option>{{ old_review['gym_name'] }}</option>
                 </select>
             </div>
-            <div class='form-group col-3 col-md-2'>
-                <label>Length of stay</label>
-                <input type="text" class="form-control" placeholder="Enter Number" id="inputTime" class="text-right" name="length_stay" value="{{ old_review['stay_length'].split()[0] }}" required>
+            <div class='form-group col-3 col-md-6'>
+                <label for="customRange">Stay Length</label>
+                <div class="form-row">
+                    <div class="col">
+                        <input type="range" class="custom-range" id="customRange" name="length_stay" min="0" max="50" value="{{ old_review['stay_length'].split()[0] }}" oninput="updateTextInput(this.value);" required>
+                    </div>
+                    <div class="col-auto">
+                        <output name="OutputName" class="custom-range" id="OutputId" value="">{{ old_review['stay_length'].split()[0] }}</output>
+                    </div>
+                </div>
             </div>
             <div class='form-group col-3 col-md-2'>
                 <label>Unit of Time</label>
@@ -31,10 +41,9 @@
                 </select>
             </div>
         </div>
-
         <div class="form-row justify-content-center">
             <div class='form-group col-6'>
-                Rate the Training (Technical Instruction, Trainers, Padwork, Sparring, Clinching, Training Partners, etc.):
+                Rate the Training (Instruction, Trainers, Padwork, Sparring, Clinching, etc.):
             </div>
             <div class='form-group col-4' style="text-align: right">
                 <div class="custom-control custom-radio custom-control-inline">
@@ -90,7 +99,7 @@
 
         <div class="form-row justify-content-center">
             <div class='form-group col-6'>
-                Rate the Location/Price (Nearby Attractions/Accommodations, Transportation, Food Options, etc.):
+                Rate the Location/Price (Nearby Attractions/Housing/Transport/Food, etc.):
             </div>
             <div class='form-group col-4' style="text-align: right">
                 <div class="custom-control custom-radio custom-control-inline">
@@ -118,7 +127,7 @@
 
         <div class="form-row justify-content-center">
             <div class='form-group col-6'>
-                Overall:
+                <b>Overall Rating (1 = Bad &#128542;, 3 = Ok &#128528;, 5 = Great! &#128513;): </b>
             </div>
             <div class='form-group col-4' style="text-align: right">
                 <div class="custom-control custom-radio custom-control-inline">

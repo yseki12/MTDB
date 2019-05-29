@@ -72,6 +72,8 @@ def reviewgym():
 
         try:
             length_stay = int(request.form.get('length_stay'))
+            if length_stay == 0:
+                raise ValueError
         except ValueError:
             error = "Invalid Length of Stay!"
 

@@ -6,9 +6,6 @@
 
 {% block head %}
 {{ super() }}
-    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.8.1/css/all.css"
-        integrity="sha384-50oBUHEmvpQ+1lW4y57PTFmhCaXp0ML5d60M1M7uH2+nqUivzIebhndOJK28anvf" crossorigin="anonymous">
-
     <script src="{{ url_for('static', filename = 'stars.js') }}"></script>
 {% endblock %}
 {% block body %}
@@ -16,69 +13,95 @@
     <h1>{{ gyms.gym }}</h1>
     <br>
     <div class="row justify-content-center">
-        <div class="col-10">
-            <table class="table table-bordered table-sm">
-                <tr>
-                    <th style="width: 15%">Location</th>
-                    <th style="width: 50%">Website</th>
-                    <th style="width: 15%">$ per Session</th>
-                    <th style="width: 10%">Weekly $</th>
-                    <th style="width: 10%">Monthly $</th>
-                </tr>
-                <tr>
-                    <td>{{ gyms.city }}</td>
-                    <td>Website</td>
-                    <td>300</td>
-                    <td>3000</td>
-                    <td>10000</td>
-                </tr>
-            </table>
-        </div>
-    </div>
-
-    <h2>Reviews</h2>
-
-    {% for rating in ratings %}
-        <div class="row justify-content-center">
-            <div class="col-10">
-                <table class="table table-bordered">
+        <div class="col-12 col-lg-10">
+            <div class="table-responsive-sm">
+                <table class="table table-bordered table-sm">
                     <tr>
-                        <th style="width: 8%"><u>Date</u></th>
-                        <th style="width: 10%"><u>User</u></th>
-                        <th style="width: 7%"><u>Review</u></th>
-                        <th colspan="5">
-                        {% if g.user['id'] == rating['userid'] %}
-                            <form action="{{ url_for('main_app.delete', id = rating['reviewid']) }}" method="POST" style="display: inline-block">
-                                <button type="submit" value="delete" onclick="return confirm('Are you sure?');" style="border:0; background: none;">
-                                    <i class="far fa-trash-alt"></i></button>
-                            </form>
-                            <form action="{{ url_for('main_app.update', id = rating['reviewid']) }}" method="GET" style="display: inline-block">
-                                <button type="submit" style="border:0; background: none;">
-                                    <i class="far fa-edit"></i></button>
-                            </form>
-                        {% endif %}
-                        </th>
-                        <th style="text-align:right; width: 8%"><span class ='notbold'>Stay:</span></th>
-                        <th style="text-align:right; width: 12%"><span class='notbold'>{{rating.stay_length}}</span></th>
+                        <th style="width: 15%">Location</th>
+                        <th style="width: 50%">Website</th>
+                        <th style="width: 15%">$ per Session</th>
+                        <th style="width: 10%">Weekly $</th>
+                        <th style="width: 10%">Monthly $</th>
                     </tr>
                     <tr>
-                        <td>{{rating.review_date.strftime('%m/%d/%Y')}}</td>
-                        <td>{{rating.username}}</td>
-                        <td colspan="8">{{rating.review}}</td>
-                    </tr>
-                    <tr>                        
-                        <td colspan="2" style="width: 25%; padding:5px 10px; text-align: center"><i>Training: &nbsp<span class="rating">{{rating.rating_training}}</span></i></td>
-                        <td colspan="2" style="width: 20%; padding:5px 10px; text-align: center"><i>Facility: &nbsp<span class="rating">{{rating.rating_facility}}</span></i></td>
-                        <td colspan="3" style="width: 25%; padding:5px 10px; text-align: center"><i>Location/Cost: &nbsp<span class="rating">{{rating.rating_location}}</span></i></td>
-                        <td colspan="3" style="width: 25%; padding:5px 10px; text-align: center"><i>Overall: &nbsp<span class="rating">{{rating.rating}}</span></i></td>
+                        <td>{{ gyms.city }}</td>
+                        <td>Website</td>
+                        <td></td>
+                        <td></td>
+                        <td></td>
                     </tr>
                 </table>
             </div>
         </div>
-    <br>
+    </div>
+
+    {% for rating in ratings %}
+
+        <div class="row justify-content-center my-3">
+            <div class="col-12 col-lg-10">
+                <div class="card">
+                    <div class="card-header py-1" style="background-color: #B4D7BF;">
+                        <div class="row justify-content-center">
+                            <div class="col-12 col-md-auto">
+                                <span class="ratingname">Training: </span><span class="rating">{{rating.rating_training}}</span>
+                            </div>
+                            <div class="col-12 col-md-auto">
+                                <span class="ratingname">Facility: </span><span class="rating">{{rating.rating_facility}}</span>
+                            </div>
+                            <div class="col-12 col-md-auto">
+                                <span class="ratingname">Location/Cost: </span><span class="rating">{{rating.rating_location}}</span>
+                            </div>
+                            <div class="col-12 col-md-auto">
+                                <span class="ratingname">Overall: </span><span class="rating">{{rating.rating}}</span>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="card-body py-2">
+                        <p class="card-text">{{rating.review}}</p>
+                    </div>
+                    <div class="card-footer py-1">
+                        <div class="row">
+                            <div class="col-12 col-md-8 footercol1">
+                                <span class="footer">By 
+                                    <a href="{{ url_for('main_app.view_user_profile', username = rating.username) }}">{{rating.username}}</a>                                    
+                                    on {{rating.review_date.strftime('%m/%d/%Y')}} - Stayed {{rating.stay_length}} - <i class="far fa-thumbs-up"></i> {{rating.count}}</span>
+                            </div>
+                            {% if g.user['id'] == rating['userid'] %}
+                                <div class="col-12 col-md-4 footercol2">
+                                    <span class="cardbuttons">
+                                        <form action="{{ url_for('main_app.delete', id = rating['reviewid']) }}" method="POST" style="display: inline-block;">
+                                            <button type="submit" value="delete" class="btn btn-danger btn-sm btnspace" onclick="return confirm('Are you sure?');">
+                                                <i class="far fa-trash-alt"></i> Delete</button>
+                                        </form>
+                                        <form action="{{ url_for('main_app.update', id = rating['reviewid']) }}" method="GET" style="display: inline-block">
+                                            <button type="submit" class="btn btn-warning btn-sm btnspace">
+                                                <i class="far fa-edit"></i> Edit</button>
+                                        </form>
+                                    </span>
+                                </div>
+                            {% elif g.user %}
+                                <div class="col-12 col-md-4 footercol2">
+                                    <span class="cardbuttons">
+                                        <form action="{{ url_for('main_app.like_review', id = rating['reviewid']) }}" method="POST" style="display: inline-block;">
+                                            <button type="submit" class="btn btn-success btn-sm btnspace">
+                                                <i class="fas fa-thumbs-up"></i></button>
+                                        </form>
+                                        <form action="{{ url_for('main_app.unlike_review', id = rating['reviewid']) }}" method="POST" style="display: inline-block;">
+                                            <button type="submit" class="btn btn-danger btn-sm btnspace">
+                                                <i class="fas fa-thumbs-down"></i></button>
+                                        </form>
+                                    </span>
+                                </div>
+                            {% endif %}
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
     {% else %}
         <div class="row justify-content-center">
-            <div class="col-10">
+            <div class="col-12 col-lg-10">
                 <table>
                     <tr>
                         <th>No Ratings</th>

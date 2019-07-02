@@ -14,7 +14,7 @@
     <form action = "{{ url_for('main_app.reviewgym') }}" method = "post">
 
         <div class='form row justify-content-center'>
-            <div class = "form-group col-3 col-md-2">
+            <div class = "form-group col-12 col-md-3 col-lg-2">
                 <label>Choose Gym</label>
                 <select class = "form-control" name = "gym_id" required>
                     <option value="">Select Gym</option>
@@ -23,7 +23,7 @@
                     {% endfor %}
                 </select>
             </div>
-            <div class='form-group col-3 col-md-6'>
+            <div class='form-group col-12 col-md-6 col-lg-6'>
                 <label for="customRange">Stay Length</label>
                 <div class="form-row">
                     <div class="col">
@@ -34,7 +34,7 @@
                     </div>
                 </div>
             </div>
-            <div class='form-group col-3 col-md-2 px-4'>
+            <div class='form-group col-12 col-md-3 col-lg-2'>
                 <label>Unit of Time</label>
                 <select id="inputTime1" class="form-control" name="unit_stay" required>
                     <option value="">Choose...</option>
@@ -46,120 +46,136 @@
             </div>
         </div>
         <div class="form-row justify-content-center">
-            <div class='form-group col-6'>
-                Rate the Training (Instruction, Trainers, Padwork, Sparring, Clinching, etc.):
-            </div>
-            <div class='form-group col-4' style="text-align: right">
-                <div class="custom-control custom-radio custom-control-inline">
-                    <input type="radio" class="custom-control-input" id="customRadio" name="rate_training" value="1" required>
-                    <label class="custom-control-label" for="customRadio">1</label>
-                </div>
-                <div class="custom-control custom-radio custom-control-inline">
-                    <input type="radio" class="custom-control-input" id="customRadio2" name="rate_training" value="2">
-                    <label class="custom-control-label" for="customRadio2">2</label>
-                </div>
-                <div class="custom-control custom-radio custom-control-inline">
-                    <input type="radio" class="custom-control-input" id="customRadio3" name="rate_training" value="3">
-                    <label class="custom-control-label" for="customRadio3">3</label>
-                </div>
-                <div class="custom-control custom-radio custom-control-inline">
-                    <input type="radio" class="custom-control-input" id="customRadio4" name="rate_training" value="4">
-                    <label class="custom-control-label" for="customRadio4">4</label>
-                </div>
-                <div class="custom-control custom-radio custom-control-inline">
-                    <input type="radio" class="custom-control-input" id="customRadio5" name="rate_training" value="5">
-                    <label class="custom-control-label" for="customRadio5">5</label>
+            <div class='form-group col-12 col-lg-6'>
+                <div class="centered">
+                    Rate the Training (Instruction, Trainers, Padwork, Sparring, Clinching, etc.):
                 </div>
             </div>
-        </div>
-        <div class="form-row justify-content-center">
-            <div class='form-group col-6'>
-                Rate the Facilities (Equipment, Hygiene, Onsite Accommodations, etc.):
-            </div>
-            <div class='form-group col-4' style="text-align: right">
-                <div class="custom-control custom-radio custom-control-inline">
-                    <input type="radio" class="custom-control-input" id="customRadio6" name="rate_facility" value="1" required>
-                    <label class="custom-control-label" for="customRadio6">1</label>
-                </div>
-                <div class="custom-control custom-radio custom-control-inline">
-                    <input type="radio" class="custom-control-input" id="customRadio7" name="rate_facility" value="2">
-                    <label class="custom-control-label" for="customRadio7">2</label>
-                </div>
-                <div class="custom-control custom-radio custom-control-inline">
-                    <input type="radio" class="custom-control-input" id="customRadio8" name="rate_facility" value="3">
-                    <label class="custom-control-label" for="customRadio8">3</label>
-                </div>
-                <div class="custom-control custom-radio custom-control-inline">
-                    <input type="radio" class="custom-control-input" id="customRadio9" name="rate_facility" value="4">
-                    <label class="custom-control-label" for="customRadio9">4</label>
-                </div>
-                <div class="custom-control custom-radio custom-control-inline">
-                    <input type="radio" class="custom-control-input" id="customRadio10" name="rate_facility" value="5">
-                    <label class="custom-control-label" for="customRadio10">5</label>
+            <div class='form-group col-12 col-lg-4 text-centered' style="text-align: right">
+                <div class="centered">
+                    <div class="custom-control custom-radio custom-control-inline">
+                        <input type="radio" class="custom-control-input" id="customRadio" name="rate_training" value="1" required>
+                        <label class="custom-control-label" for="customRadio">1</label>
+                    </div>
+                    <div class="custom-control custom-radio custom-control-inline">
+                        <input type="radio" class="custom-control-input" id="customRadio2" name="rate_training" value="2">
+                        <label class="custom-control-label" for="customRadio2">2</label>
+                    </div>
+                    <div class="custom-control custom-radio custom-control-inline">
+                        <input type="radio" class="custom-control-input" id="customRadio3" name="rate_training" value="3">
+                        <label class="custom-control-label" for="customRadio3">3</label>
+                    </div>
+                    <div class="custom-control custom-radio custom-control-inline">
+                        <input type="radio" class="custom-control-input" id="customRadio4" name="rate_training" value="4">
+                        <label class="custom-control-label" for="customRadio4">4</label>
+                    </div>
+                    <div class="custom-control custom-radio custom-control-inline">
+                        <input type="radio" class="custom-control-input" id="customRadio5" name="rate_training" value="5">
+                        <label class="custom-control-label" for="customRadio5">5</label>
+                    </div>
                 </div>
             </div>
         </div>
         <div class="form-row justify-content-center">
-            <div class='form-group col-6'>
-                Rate the Location/Price (Nearby Attractions/Housing/Transport/Food, etc.):
+            <div class='form-group col-12 col-lg-6'>
+                <div class="centered">
+                    Rate the Facilities (Equipment, Hygiene, Onsite Accommodations, etc.):
+                </div>
             </div>
-            <div class='form-group col-4' style="text-align: right">
-                <div class="custom-control custom-radio custom-control-inline">
-                    <input type="radio" class="custom-control-input" id="customRadio11" name="rate_locationcost" value="1" required>
-                    <label class="custom-control-label" for="customRadio11">1</label>
+            <div class='form-group col-12 col-lg-4' style="text-align: right">
+                <div class="centered">
+                    <div class="custom-control custom-radio custom-control-inline">
+                        <input type="radio" class="custom-control-input" id="customRadio6" name="rate_facility" value="1" required>
+                        <label class="custom-control-label" for="customRadio6">1</label>
+                    </div>
+                    <div class="custom-control custom-radio custom-control-inline">
+                        <input type="radio" class="custom-control-input" id="customRadio7" name="rate_facility" value="2">
+                        <label class="custom-control-label" for="customRadio7">2</label>
+                    </div>
+                    <div class="custom-control custom-radio custom-control-inline">
+                        <input type="radio" class="custom-control-input" id="customRadio8" name="rate_facility" value="3">
+                        <label class="custom-control-label" for="customRadio8">3</label>
+                    </div>
+                    <div class="custom-control custom-radio custom-control-inline">
+                        <input type="radio" class="custom-control-input" id="customRadio9" name="rate_facility" value="4">
+                        <label class="custom-control-label" for="customRadio9">4</label>
+                    </div>
+                    <div class="custom-control custom-radio custom-control-inline">
+                        <input type="radio" class="custom-control-input" id="customRadio10" name="rate_facility" value="5">
+                        <label class="custom-control-label" for="customRadio10">5</label>
+                    </div>
                 </div>
-                <div class="custom-control custom-radio custom-control-inline">
-                    <input type="radio" class="custom-control-input" id="customRadio12" name="rate_locationcost" value="2">
-                    <label class="custom-control-label" for="customRadio12">2</label>
+            </div>
+        </div>
+        <div class="form-row justify-content-center">
+            <div class='form-group col-12 col-lg-6'>
+                <div class="centered">
+                    Rate the Location/Price (Nearby Attractions/Housing/Transport/Food, etc.):
                 </div>
-                <div class="custom-control custom-radio custom-control-inline">
-                    <input type="radio" class="custom-control-input" id="customRadio13" name="rate_locationcost" value="3">
-                    <label class="custom-control-label" for="customRadio13">3</label>
-                </div>
-                <div class="custom-control custom-radio custom-control-inline">
-                    <input type="radio" class="custom-control-input" id="customRadio14" name="rate_locationcost" value="4">
-                    <label class="custom-control-label" for="customRadio14">4</label>
-                </div>
-                <div class="custom-control custom-radio custom-control-inline">
-                    <input type="radio" class="custom-control-input" id="customRadio15" name="rate_locationcost" value="5">
-                    <label class="custom-control-label" for="customRadio15">5</label>
+            </div>
+            <div class='form-group col-12 col-lg-4' style="text-align: right">
+                <div class="centered">
+                    <div class="custom-control custom-radio custom-control-inline">
+                        <input type="radio" class="custom-control-input" id="customRadio11" name="rate_locationcost" value="1" required>
+                        <label class="custom-control-label" for="customRadio11">1</label>
+                    </div>
+                    <div class="custom-control custom-radio custom-control-inline">
+                        <input type="radio" class="custom-control-input" id="customRadio12" name="rate_locationcost" value="2">
+                        <label class="custom-control-label" for="customRadio12">2</label>
+                    </div>
+                    <div class="custom-control custom-radio custom-control-inline">
+                        <input type="radio" class="custom-control-input" id="customRadio13" name="rate_locationcost" value="3">
+                        <label class="custom-control-label" for="customRadio13">3</label>
+                    </div>
+                    <div class="custom-control custom-radio custom-control-inline">
+                        <input type="radio" class="custom-control-input" id="customRadio14" name="rate_locationcost" value="4">
+                        <label class="custom-control-label" for="customRadio14">4</label>
+                    </div>
+                    <div class="custom-control custom-radio custom-control-inline">
+                        <input type="radio" class="custom-control-input" id="customRadio15" name="rate_locationcost" value="5">
+                        <label class="custom-control-label" for="customRadio15">5</label>
+                    </div>
                 </div>
             </div>
         </div>
         <div class="form row justify-content-center">
-            <div class='form-group col-6'>
-                <b>Overall Rating (1 = Bad &#128542;, 3 = Ok &#128528;, 5 = Great! &#128513;): </b>
+            <div class='form-group col-12 col-lg-6'>
+                <div class="centered">
+                    <b>Overall Rating (1 = Bad &#128542;, 3 = Ok &#128528;, 5 = Great! &#128513;): </b>
+                </div>
             </div>
-            <div class='form-group col-4' style="text-align: right">
-                <div class="custom-control custom-radio custom-control-inline">
-                    <input type="radio" class="custom-control-input" id="customRadio16" name="rate_overall" value="1" required>
-                    <label class="custom-control-label" for="customRadio16">1</label>
-                </div>
-                <div class="custom-control custom-radio custom-control-inline">
-                    <input type="radio" class="custom-control-input" id="customRadio17" name="rate_overall" value="2">
-                    <label class="custom-control-label" for="customRadio17">2</label>
-                </div>
-                <div class="custom-control custom-radio custom-control-inline">
-                    <input type="radio" class="custom-control-input" id="customRadio18" name="rate_overall" value="3">
-                    <label class="custom-control-label" for="customRadio18">3</label>
-                </div>
-                <div class="custom-control custom-radio custom-control-inline">
-                    <input type="radio" class="custom-control-input" id="customRadio19" name="rate_overall" value="4">
-                    <label class="custom-control-label" for="customRadio19">4</label>
-                </div>
-                <div class="custom-control custom-radio custom-control-inline">
-                    <input type="radio" class="custom-control-input" id="customRadio20" name="rate_overall" value="5">
-                    <label class="custom-control-label" for="customRadio20">5</label>
+            <div class='form-group col-12 col-lg-4' style="text-align: right">
+                <div class="centered">
+                    <div class="custom-control custom-radio custom-control-inline">
+                        <input type="radio" class="custom-control-input" id="customRadio16" name="rate_overall" value="1" required>
+                        <label class="custom-control-label" for="customRadio16">1</label>
+                    </div>
+                    <div class="custom-control custom-radio custom-control-inline">
+                        <input type="radio" class="custom-control-input" id="customRadio17" name="rate_overall" value="2">
+                        <label class="custom-control-label" for="customRadio17">2</label>
+                    </div>
+                    <div class="custom-control custom-radio custom-control-inline">
+                        <input type="radio" class="custom-control-input" id="customRadio18" name="rate_overall" value="3">
+                        <label class="custom-control-label" for="customRadio18">3</label>
+                    </div>
+                    <div class="custom-control custom-radio custom-control-inline">
+                        <input type="radio" class="custom-control-input" id="customRadio19" name="rate_overall" value="4">
+                        <label class="custom-control-label" for="customRadio19">4</label>
+                    </div>
+                    <div class="custom-control custom-radio custom-control-inline">
+                        <input type="radio" class="custom-control-input" id="customRadio20" name="rate_overall" value="5">
+                        <label class="custom-control-label" for="customRadio20">5</label>
+                    </div>
                 </div>
             </div>
         </div>
         <div class="form-row justify-content-center">
-            <div class='form-group col-10'>
+            <div class='form-group col-12 col-lg-10'>
                 <textarea class="form-control" name="review" placeholder="Write your Review", rows="10" required>{{ request.form['review'] }}</textarea>
             </div>
         </div>
         <div class="form-row justify-content-center">
-            <div class="form-group col-10 text-right">
+            <div class="form-group col-12 col-lg-10 text-right">
                 <input class="btn btn-secondary" type="reset" value="Reset">
                 <button class="btn btn-primary">Submit</button>
             </div>

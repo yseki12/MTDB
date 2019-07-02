@@ -1,47 +1,57 @@
 {% extends "layout.html" %}
 
-{% block title %}Muay Thai Buddy{% endblock %}
+{% block title %}Muay Thai DB{% endblock %}
 
 {% block head %}
 {{ super() }}
-<link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.8.1/css/all.css"
-    integrity="sha384-50oBUHEmvpQ+1lW4y57PTFmhCaXp0ML5d60M1M7uH2+nqUivzIebhndOJK28anvf" crossorigin="anonymous">
 <script src="{{ url_for('static', filename = 'sorttable.js') }}"></script>
 {% endblock %}
 
 {% block body %}
     <div class="row justify-content-center py-1">
-        <div class="col-10">
-            <h2>Welcome to Muay Thai Buddy!</h2>
+        <div class="col-12 col-lg-10">
+            <h2>Welcome to Muay Thai DB!</h2>
             <img src='/static/image.jpg' class="logo">
             <h5>Find a training partner in Thailand!</h5>
         </div>
     </div>
     <div class="row justify-content-center">
-        <div class = "col-10">
+        <div class="col-12 col-lg-10">
             <table class = "table table-sm table-striped table-bordered table-main" id="indexTable">
                 <tr>
-                    <th id="th_gym_name" class="header" style="width: 20%" onclick="sortTable(0);sortImage(this);">Gym Name<span class="sorticon"><i class="fas fa-sort"></i></span></th>
-                    <th id="th_gym_loc" class="header" style="width: 20%" onclick="sortTable(1);sortImage(this);">Location<span class="sorticon"><i class="fas fa-sort"></i></span></th>
-                    <th id="th_gym_rate" class="header" style="width: 20%" onclick="sortTable(2);sortImage(this);">Average Rating<span class="sorticon"><i class="fas fa-sort"></i></span></th>
-                    <th id="th_num_rate" class="header" style="width: 20%" onclick="sortTable(3);sortImage(this);">Number of Ratings<span class="sorticon"><i class="fas fa-sort"></i></span></th>
-                    <th id="th_days_train" class="header" style="width: 20%" onclick="sortTable(4);sortImage(this);">Total Days Trained<span class="sorticon"><i class="fas fa-sort"></i></span></th>
+                    <th id="th_gym_name" class="header" style="width: 20%" onclick="sortTable(0,this);">Gym Name<span class="sorticon"><i class="fas fa-sort"></i></span></th>
+                    <th id="th_gym_loc" class="header" style="width: 20%" onclick="sortTable(1,this);">Location<span class="sorticon"><i class="fas fa-sort"></i></span></th>
+                    <th id="th_gym_rate" class="header" style="width: 20%" onclick="sortTable(2,this);">Average Rating<span class="sorticon"><i class="fas fa-sort"></i></span></th>
+                    <th id="th_num_rate" class="header" style="width: 20%" onclick="sortTable(3,this);">Number of Ratings<span class="sorticon"><i class="fas fa-sort"></i></span></th>
+                    <th id="th_days_train" class="header" style="width: 20%" onclick="sortTable(4,this);">Total Days Trained<span class="sorticon"><i class="fas fa-sort"></i></span></th>
                 </tr>
             
                 {% for gym in gyms %}
                     <tr>
                         <td><a href = "{{ url_for('main_app.gym', gym_id = gym.id) }}">{{ gym.gym }}</a></td>
                         <td>{{ gym.city }}</td>
-                        <td>{{ gym.average }}</td>
+                        <td>
+                            {%- if gym['average'] is none -%}
+                            No Ratings
+                            {%- else -%}
+                            {{ gym.average }}
+                            {%- endif -%}
+                        </td>
                         <td>{{ gym.count }}</td>
-                        <td>{{ gym.sum_days }}</td>
+                        <td>
+                            {%- if gym['sum_days'] is none -%}
+                            0
+                            {%- else -%}
+                            {{ gym.sum_days }}
+                            {%- endif -%}
+                        </td>
                     </tr>
                 {% endfor %}
             </table>
         </div>
     </div>
     <div class="row justify-content-center">
-        <div class="col-10">
+        <div class="col-12 col-lg-10">
             <div class="progress">
                 <div class="progress-bar" role="progressbar" aria-valuenow="60" aria-valuemin="0" aria-valuemax="100" style="width: 50%;">
                     50% Complete

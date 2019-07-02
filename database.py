@@ -3,11 +3,11 @@ from sqlalchemy import create_engine
 from sqlalchemy.orm import scoped_session, sessionmaker
 
 # Check for environment variable
-if not os.getenv("DATABASE_URL"):
+if not os.environ.get("DATABASE_URL", None):
     raise RuntimeError("DATABASE_URL is not set")
 
 # Set up database
-engine = create_engine(os.getenv("DATABASE_URL"))
+engine = create_engine(os.environ.get("DATABASE_URL"))
 db = scoped_session(sessionmaker(bind=engine))
 
 def close_db(e=None):

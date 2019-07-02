@@ -14,13 +14,13 @@
     <form action = "{{ url_for('main_app.update', id = old_review['id']) }}" method = "POST">
 
         <div class='form row justify-content-center'>
-            <div class="form-group col-3 col-md-2">
-                <label for="disabledSelect">Disabled select menu</label>
+            <div class="form-group col-12 col-md-2">
+                <label for="disabledSelect">Gym</label>
                 <select id="disabledSelect" class="form-control" disabled>
                     <option>{{ old_review['gym_name'] }}</option>
                 </select>
             </div>
-            <div class='form-group col-3 col-md-6'>
+            <div class='form-group col-12 col-md-6'>
                 <label for="customRange">Stay Length</label>
                 <div class="form-row">
                     <div class="col">
@@ -31,7 +31,7 @@
                     </div>
                 </div>
             </div>
-            <div class='form-group col-3 col-md-2'>
+            <div class='form-group col-12 col-md-2'>
                 <label>Unit of Time</label>
                 <select id="inputTime1" class="form-control" name="unit_stay">
                     <option value="Days"{% if old_review['stay_length'].split()[1][0].lower()=='d' %} selected="selected"{% endif %}>Days</option>
@@ -42,10 +42,10 @@
             </div>
         </div>
         <div class="form-row justify-content-center">
-            <div class='form-group col-6'>
+            <div class='form-group col-12 col-md-10 col-lg-6'>
                 Rate the Training (Instruction, Trainers, Padwork, Sparring, Clinching, etc.):
             </div>
-            <div class='form-group col-4' style="text-align: right">
+            <div class='form-group col-12 col-md-10 col-lg-4' style="text-align: right">
                 <div class="custom-control custom-radio custom-control-inline">
                     <input type="radio" class="custom-control-input" id="customRadio" name="rate_training" value="1"{% if old_review["rating_training"]==1 %} checked{% endif %}>
                     <label class="custom-control-label" for="customRadio">1</label>
@@ -70,10 +70,10 @@
         </div>
 
         <div class="form-row justify-content-center">
-            <div class='form-group col-6'>
+            <div class='form-group col-12 col-md-10 col-lg-6'>
                 Rate the Facilities (Equipment, Hygiene, Onsite Accommodations, etc.):
             </div>
-            <div class='form-group col-4' style="text-align: right">
+            <div class='form-group col-12 col-md-10 col-lg-4' style="text-align: right">
                 <div class="custom-control custom-radio custom-control-inline">
                     <input type="radio" class="custom-control-input" id="customRadio6" name="rate_facility" value="1"{% if old_review["rating_facility"]==1 %} checked{% endif %}>
                     <label class="custom-control-label" for="customRadio6">1</label>
@@ -98,10 +98,10 @@
         </div>
 
         <div class="form-row justify-content-center">
-            <div class='form-group col-6'>
+            <div class='form-group col-12 col-md-10 col-lg-6'>
                 Rate the Location/Price (Nearby Attractions/Housing/Transport/Food, etc.):
             </div>
-            <div class='form-group col-4' style="text-align: right">
+            <div class='form-group col-12 col-md-10 col-lg-4' style="text-align: right">
                 <div class="custom-control custom-radio custom-control-inline">
                     <input type="radio" class="custom-control-input" id="customRadio11" name="rate_locationcost" value="1"{% if old_review["rating_location"]==1 %} checked{% endif %}>
                     <label class="custom-control-label" for="customRadio11">1</label>
@@ -126,10 +126,10 @@
         </div>
 
         <div class="form-row justify-content-center">
-            <div class='form-group col-6'>
+            <div class='form-group col-12 col-md-10 col-lg-6'>
                 <b>Overall Rating (1 = Bad &#128542;, 3 = Ok &#128528;, 5 = Great! &#128513;): </b>
             </div>
-            <div class='form-group col-4' style="text-align: right">
+            <div class='form-group col-12 col-md-10 col-lg-4' style="text-align: right">
                 <div class="custom-control custom-radio custom-control-inline">
                     <input type="radio" class="custom-control-input" id="customRadio16" name="rate_overall" value="1"{% if old_review["rating"]==1 %} checked{% endif %}>
                     <label class="custom-control-label" for="customRadio16">1</label>
@@ -154,13 +154,13 @@
         </div>
 
         <div class="form-row justify-content-center">
-            <div class='form-group col-10'>
+            <div class='form-group col-12 col-md-10'>
                 <textarea class="form-control" name="review" placeholder="Write your Review", rows="10" required>{{request.form['review'] or old_review['review'] }}</textarea>     
             </div>
         </div>
 
         <div class="form-row justify-content-center">
-            <div class="form-group col-10 text-right">
+            <div class="form-group col-12 col-md-10 text-right">
                 <input class="btn btn-secondary" type="reset" value="Reset">
                 <button class="btn btn-primary">Submit</button>
             </div>

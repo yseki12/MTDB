@@ -1,5 +1,13 @@
-function sortTable(n) {
+function sortTable(n, object) {
   var table, vartype, rows, switching, i, x, y, shouldSwitch, dir, switchcount = 0;
+
+  var object_id = object.id;
+  var object_header = document.getElementById(object_id);
+  var object_span = object_header.getElementsByTagName('span')[0].innerHTML;
+  var presort = '<i class="fas fa-sort"></i>';
+  var sortup = '<i class="fas fa-sort-up"></i>';
+  var sortdown = '<i class="fas fa-sort-down"></i>';
+
   table = document.getElementById("indexTable");
   switching = true;
   // Set the sorting direction to ascending:
@@ -68,6 +76,12 @@ function sortTable(n) {
       /* If a switch has been marked, make the switch
       and mark that a switch has been done: */
       rows[i].parentNode.insertBefore(rows[i + 1], rows[i]);
+
+      document.getElementById(object.id).getElementsByTagName('span')[0].innerHTML = sortup;
+
+      if (dir == "desc"){
+        document.getElementById(object.id).getElementsByTagName('span')[0].innerHTML = sortdown;
+      }
       switching = true;
       // Each time a switch is done, increase this count by 1:
       switchcount ++; 
@@ -79,25 +93,5 @@ function sortTable(n) {
         switching = true;
       }
     }
-  }
-}
-
-function sortImage(object) {
-
-  var object_id = object.id;
-  var object_header = document.getElementById(object_id);
-  var object_span = object_header.getElementsByTagName('span')[0].innerHTML;
-  var presort = '<i class="fas fa-sort"></i>';
-  var sortup = '<i class="fas fa-sort-up"></i>';
-  var sortdown = '<i class="fas fa-sort-down"></i>';
-
-  if (object_span === presort) {
-    document.getElementById(object.id).getElementsByTagName('span')[0].innerHTML = sortup;
-  }
-  else if (object_span === sortup) {
-    document.getElementById(object.id).getElementsByTagName('span')[0].innerHTML = sortdown;
-  }
-  else if (object_span === sortdown) {
-    document.getElementById(object.id).getElementsByTagName('span')[0].innerHTML = sortup;
   }
 }
